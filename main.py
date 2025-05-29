@@ -82,11 +82,17 @@ class BotGame:
 
         # Mover aleatoriamente
         moves = ((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1))
-        move = random.choice(moves)
+        # move = random.choice(moves)
+        # action = game_pb2.NewAction(
+        #     Action=game_pb2.MOVE,
+        #     Destination=game_pb2.Position(
+        #         X=turn.Position.X + move[0], Y=turn.Position.Y + move[1]
+        #     ),
+        # )
         action = game_pb2.NewAction(
             Action=game_pb2.MOVE,
             Destination=game_pb2.Position(
-                X=turn.Position.X + move[0], Y=turn.Position.Y + move[1]
+                X=turn.Position.X, Y=turn.Position.Y
             ),
         )
 
