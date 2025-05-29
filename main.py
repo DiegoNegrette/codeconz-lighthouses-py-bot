@@ -25,6 +25,7 @@ class BotGame:
         self.initial_state = None
         self.turn_states = []
         self.countT = 1
+        self.last_cell = True
 
     def new_turn_action(self, turn: game_pb2.NewTurn) -> game_pb2.NewAction:
         cx, cy = turn.Position.X, turn.Position.Y
@@ -89,12 +90,21 @@ class BotGame:
         #         X=turn.Position.X + move[0], Y=turn.Position.Y + move[1]
         #     ),
         # )
-        action = game_pb2.NewAction(
-            Action=game_pb2.MOVE,
-            Destination=game_pb2.Position(
-                X=turn.Position.X, Y=turn.Position.Y
-            ),
-        )
+        if self.last_cell:
+            action = game_pb2.NewAction(
+                Action=game_pb2.MOVE,
+                Destination=game_pb2.Position(
+                    X=0, Y=14
+                ),
+            )
+        else:
+            action = game_pb2.NewAction(
+                Action=game_pb2.MOVE,
+                Destination=game_pb2.Position(
+                    X=14, Y=14
+                ),
+            )
+        self.last_cell = not self.last_cell
 
         bgt = BotGameTurn(turn, action)
         self.turn_states.append(bgt)
