@@ -41,19 +41,19 @@ class BotGame:
         lh_here = lighthouses.get(my_pos)
 
         if lh_here:
-            # Check if connection is possible
-            for conn in turn.Connections:
-                if (conn.From.X, conn.From.Y) == my_pos and conn.CanConnect:
-                    dest = (conn.To.X, conn.To.Y)
-                    self.visited.append(my_pos)
-                    action = game_pb2.NewAction(
-                        Action=game_pb2.CONNECT,
-                        Destination=game_pb2.Position(X=dest[0], Y=dest[1]),
-                        Energy=min(turn.Energy, 10),
-                    )
-                    self.turn_states.append(BotGameTurn(turn, action))
-                    self.countT += 1
-                    return action
+            # # Check if connection is possible
+            # for conn in turn.Connections:
+            #     if (conn.From.X, conn.From.Y) == my_pos and conn.CanConnect:
+            #         dest = (conn.To.X, conn.To.Y)
+            #         self.visited.append(my_pos)
+            #         action = game_pb2.NewAction(
+            #             Action=game_pb2.CONNECT,
+            #             Destination=game_pb2.Position(X=dest[0], Y=dest[1]),
+            #             Energy=min(turn.Energy, 10),
+            #         )
+            #         self.turn_states.append(BotGameTurn(turn, action))
+            #         self.countT += 1
+            #         return action
 
             # If it's not ours, attack
             if lh_here.Owner != self.player_num:
